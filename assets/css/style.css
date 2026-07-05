@@ -133,11 +133,13 @@ h1, h2, h3, p {
 .nav__monogram {
   display: flex;
   align-items: center;
+  align-self: flex-start;
 }
 
 .nav__monogram-img {
   width: clamp(28px, 4vw, 36px);
   height: auto;
+  margin-top: 0.2rem;
   filter: brightness(0) invert(1);
   opacity: 0.95;
 }
