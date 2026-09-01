@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convite — Guilherme &amp; Barbara</title>
+<meta name="description" content="Você está convidado para o casamento de Guilherme & Barbara. Domingo, 29 de novembro de 2026.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Convite — Guilherme & Barbara">
+<meta property="og:description" content="Você está convidado! Toque para abrir o convite do nosso casamento. 29 de novembro de 2026.">
+<meta property="og:image" content="https://guiiluiss.github.io/Gui-Ba/assets/img/capa-compartilhamento.jpg?v=6">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://guiiluiss.github.io/Gui-Ba/convite/">
+
+<link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --color-black: #111111;
+    --color-white: #ffffff;
+    --color-cream: #f7f5f2;
+    --color-gray-900: #1a1a1a;
+    --color-gray-700: #4a4a4a;
+    --color-gray-400: #9a9a9a;
+    --color-gray-200: #e4e2de;
+    --color-gold: #b7975f;
+    --color-gold-soft: #cdb280;
+    --font-display: "Bodoni Moda", "Cormorant Garamond", serif;
+    --font-serif: "Cormorant Garamond", serif;
+    --font-body: "Inter", "Manrope", sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-gray-900);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; height: auto; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ============================ Envelope ============================ */
+
+  .envelope {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--color-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 1.1s var(--ease), visibility 1.1s;
+  }
+
+  .envelope.is-open {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .envelope__frame {
+    position: absolute;
+    inset: clamp(0.9rem, 3vw, 1.75rem);
+    border: 1px solid var(--color-gold);
+    pointer-events: none;
+  }
+
+  .envelope__flap {
+    position: absolute;
+    top: clamp(0.9rem, 3vw, 1.75rem);
+    left: clamp(0.9rem, 3vw, 1.75rem);
+    right: clamp(0.9rem, 3vw, 1.75rem);
+    height: min(34vh, 34vw);
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .envelope__flap::before,
+  .envelope__flap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 55.6%;
+    height: 1px;
+    background: var(--color-gold-soft);
+    opacity: 0.85;
+  }
+
+  .envelope__flap::before {
+    left: 0;
+    transform-origin: left top;
+    transform: rotate(26deg);
+  }
+
+  .envelope__flap::after {
+    right: 0;
+    transform-origin: right top;
+    transform: rotate(-26deg);
+  }
+
+  .envelope__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    max-width: 30rem;
+  }
+
+  .envelope__monogram {
+    width: clamp(84px, 20vw, 120px);
+    opacity: 0.92;
+  }
+
+  .envelope__names {
+    margin-top: 1.4rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 5vw, 1.9rem);
+    letter-spacing: 0.04em;
+    color: var(--color-black);
+  }
+
+  .envelope__names span {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-gold);
+    padding: 0 0.2rem;
+  }
+
+  .envelope__eyebrow {
+    margin-top: 0.9rem;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .envelope__seal {
+    margin-top: 2.4rem;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    border: 1px solid var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+    color: var(--color-gold);
+    animation: sealPulse 2.6s var(--ease) infinite;
+  }
+
+  @keyframes sealPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(183, 151, 95, 0.28); }
+    50% { box-shadow: 0 0 0 14px rgba(183, 151, 95, 0); }
+  }
+
+  .envelope__cta {
+    margin-top: 1.1rem;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--color-gray-700);
+  }
+
+  /* ============================ Convite ============================ */
+
+  .invite {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1.25rem, 5vw, 2rem) 3rem;
+    opacity: 0;
+    transition: opacity 1.2s var(--ease) 0.35s;
+  }
+
+  body.is-revealed .invite { opacity: 1; }
+
+  .invite__inner {
+    border: 1px solid var(--color-gold);
+    padding: clamp(2rem, 7vw, 3rem) clamp(1.4rem, 5.5vw, 2.4rem) clamp(1.8rem, 6vw, 2.6rem);
+    text-align: center;
+    background: var(--color-cream);
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .invite__monogram {
+    width: clamp(64px, 15vw, 84px);
+    margin: 0 auto;
+    opacity: 0.92;
+  }
+
+  .invite__eyebrow {
+    margin-top: 1.2rem;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .invite__names {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 8.5vw, 2.9rem);
+    line-height: 1.12;
+    color: var(--color-black);
+  }
+
+  .invite__names span {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.72em;
+    color: var(--color-gold);
+    padding: 0 0.25rem;
+  }
+
+  .invite__verse {
+    margin: 1.3rem auto 0;
+    max-width: 24rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.02rem, 4vw, 1.15rem);
+    line-height: 1.5;
+    color: var(--color-gray-700);
+  }
+
+  .invite__verse-ref {
+    display: block;
+    margin-top: 0.55rem;
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 0.56rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .invite__photo {
+    margin-top: 1.7rem;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    object-position: 50% 42%;
+  }
+
+  .invite__line {
+    margin: 1.7rem auto 0;
+    max-width: 22rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 4.2vw, 1.2rem);
+    line-height: 1.5;
+    color: var(--color-gray-700);
+  }
+
+  .invite__date {
+    margin-top: 1.3rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 5.5vw, 1.7rem);
+    letter-spacing: 0.05em;
+    color: var(--color-black);
+  }
+
+  .invite__times {
+    margin-top: 0.7rem;
+    font-size: 0.66rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-gray-700);
+  }
+
+  .invite__times span { color: var(--color-gold); padding: 0 0.35rem; }
+
+  /* Contagem regressiva */
+
+  .countdown {
+    margin-top: 2rem;
+  }
+
+  .countdown__title {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .countdown__grid {
+    margin-top: 0.9rem;
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.9rem, 4vw, 1.6rem);
+  }
+
+  .countdown__value {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 6.5vw, 2.1rem);
+    color: var(--color-black);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown__label {
+    margin-top: 0.25rem;
+    font-size: 0.54rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gray-400);
+  }
+
+  .invite__rule {
+    width: 5.5rem;
+    border: 0;
+    border-top: 1px solid var(--color-gold-soft);
+    margin: 2rem auto 0;
+  }
+
+  .invite__venue {
+    margin-top: 1.8rem;
+  }
+
+  .invite__venue-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 4.6vw, 1.3rem);
+    color: var(--color-black);
+    letter-spacing: 0.04em;
+  }
+
+  .invite__venue-address {
+    margin: 0.6rem auto 0;
+    max-width: 20rem;
+    font-size: 0.78rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    color: var(--color-gray-700);
+    line-height: 1.6;
+  }
+
+  /* Botões */
+
+  .invite__actions {
+    margin-top: 1.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid var(--color-gray-900);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gray-900);
+    transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+
+  .btn:hover {
+    background: var(--color-black);
+    border-color: var(--color-black);
+    color: var(--color-cream);
+  }
+
+  .btn--gold {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+
+  .btn--gold:hover {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-cream);
+  }
+
+  .btn svg {
+    width: 15px;
+    height: 15px;
+    flex: none;
+  }
+
+  .invite__rsvp {
+    margin: 1.9rem auto 0;
+    max-width: 21rem;
+    font-size: 0.72rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--color-gray-700);
+  }
+
+  .invite__rsvp strong {
+    font-weight: 500;
+    color: var(--color-gray-900);
+  }
+
+  .invite__footer {
+    margin-top: 2.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .invite__footer-monogram {
+    width: 42px;
+    opacity: 0.85;
+  }
+
+  .invite__footer-date {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--color-gray-400);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .envelope { transition: none; }
+    .invite { transition: none; }
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .envelope__seal { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== ENVELOPE ===================== -->
+<div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Toque para abrir o convite">
+  <div class="envelope__frame" aria-hidden="true"></div>
+  <div class="envelope__flap" aria-hidden="true"></div>
+  <div class="envelope__content">
+    <img class="envelope__monogram" src="../assets/img/logo-gb.png" alt="Monograma GB">
+    <p class="envelope__eyebrow">Convite de Casamento</p>
+    <p class="envelope__names">Guilherme <span>&amp;</span> Barbara</p>
+    <div class="envelope__seal" aria-hidden="true">G·B</div>
+    <p class="envelope__cta">Toque para abrir</p>
+  </div>
+</div>
+
+<!-- ===================== CONVITE ===================== -->
+<main class="invite">
+  <div class="invite__inner">
+    <img class="invite__monogram" src="../assets/img/logo-gb.png" alt="Monograma GB" data-reveal>
+
+    <p class="invite__eyebrow" data-reveal>Convite de Casamento</p>
+
+    <h1 class="invite__names" data-reveal>Guilherme <span>&amp;</span> Barbara</h1>
+
+    <p class="invite__verse" data-reveal>
+      “Acima de tudo, tenham amor, pois o amor une perfeitamente todas as coisas.”
+      <span class="invite__verse-ref">Colossenses 3:14</span>
+    </p>
+
+    <img class="invite__photo" src="../assets/img/foto-maos.jpg" alt="Mãos de Guilherme e Barbara entrelaçadas, com as alianças" data-reveal>
+
+    <p class="invite__line" data-reveal>Com muita alegria, convidamos você para celebrar o nosso casamento</p>
+
+    <p class="invite__date" data-reveal>Domingo, 29 de novembro de 2026</p>
+
+    <p class="invite__times" data-reveal>Abertura dos portões às 15h <span>·</span> Cerimônia às 16h</p>
+
+    <div class="countdown" data-reveal>
+      <p class="countdown__title">Faltam</p>
+      <div class="countdown__grid" id="countdown" data-wedding-date="2026-11-29T16:00:00-03:00">
+        <div><p class="countdown__value" id="cdDays">—</p><p class="countdown__label">Dias</p></div>
+        <div><p class="countdown__value" id="cdHours">—</p><p class="countdown__label">Horas</p></div>
+        <div><p class="countdown__value" id="cdMinutes">—</p><p class="countdown__label">Min</p></div>
+        <div><p class="countdown__value" id="cdSeconds">—</p><p class="countdown__label">Seg</p></div>
+      </div>
+    </div>
+
+    <hr class="invite__rule" data-reveal>
+
+    <div class="invite__venue" data-reveal>
+      <p class="invite__venue-name">Espaço Aviv Eventos</p>
+      <p class="invite__venue-address">Av. Dona Cherubina Viana, 669<br>Vila Santo Antônio, Cotia — SP</p>
+    </div>
+
+    <div class="invite__actions" data-reveal>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Aviv+Eventos%2C+Av.+Dona+Cherubina+Viana%2C+669%2C+Vila+Santo+Ant%C3%B4nio%2C+Cotia%2C+SP" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
+        Ver local no mapa
+      </a>
+      <a class="btn btn--gold" href="https://casamento-guieba.listaideal.com.br/pt/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4"></rect><rect x="4.5" y="12" width="15" height="9"></rect><line x1="12" y1="8" x2="12" y2="21"></line><path d="M12 8c-1.5-3.5-5.5-4.5-6.5-2.5S8.5 8 12 8z"></path><path d="M12 8c1.5-3.5 5.5-4.5 6.5-2.5S15.5 8 12 8z"></path></svg>
+        Lista de presentes
+      </a>
+      <a class="btn" href="../index.html#manual">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        Manual dos convidados
+      </a>
+      <a class="btn" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>
+        Nosso site completo
+      </a>
+    </div>
+
+    <p class="invite__rsvp" data-reveal>
+      A sua confirmação de presença é essencial. <strong>A equipe de assessoria entrará em contato
+      pelo WhatsApp.</strong> Fique atento às mensagens.
+    </p>
+
+    <div class="invite__footer" data-reveal>
+      <img class="invite__footer-monogram" src="../assets/img/logo-gb.png" alt="">
+      <p class="invite__footer-date">29 · 11 · 2026</p>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* -------- Envelope -------- */
+  var envelope = document.getElementById("envelope");
+
+  function openEnvelope() {
+    if (document.body.classList.contains("is-revealed")) return;
+    envelope.classList.add("is-open");
+    document.body.classList.add("is-revealed");
+    revealInView();
+  }
+
+  envelope.addEventListener("click", openEnvelope);
+  envelope.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openEnvelope();
+    }
+  });
+
+  /* -------- Scroll reveal -------- */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
+  var observer = null;
+
+  if ("IntersectionObserver" in window) {
+    observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+  }
+
+  function revealInView() {
+    revealEls.forEach(function (el) {
+      if (observer) {
+        observer.observe(el);
+      } else {
+        el.classList.add("is-visible");
+      }
+    });
+  }
+
+  /* -------- Contagem regressiva -------- */
+  var countdownEl = document.getElementById("countdown");
+  var weddingDate = new Date(countdownEl.getAttribute("data-wedding-date")).getTime();
+  var els = {
+    days: document.getElementById("cdDays"),
+    hours: document.getElementById("cdHours"),
+    minutes: document.getElementById("cdMinutes"),
+    seconds: document.getElementById("cdSeconds")
+  };
+
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+  function tick() {
+    var diff = weddingDate - Date.now();
+    if (diff <= 0) {
+      els.days.textContent = "0";
+      els.hours.textContent = "00";
+      els.minutes.textContent = "00";
+      els.seconds.textContent = "00";
+      return;
+    }
+    els.days.textContent = String(Math.floor(diff / 86400000));
+    els.hours.textContent = pad(Math.floor(diff / 3600000) % 24);
+    els.minutes.textContent = pad(Math.floor(diff / 60000) % 60);
+    els.seconds.textContent = pad(Math.floor(diff / 1000) % 60);
+    setTimeout(tick, 1000);
+  }
+
+  tick();
+})();
+</script>
+
+</body>
+</html>
