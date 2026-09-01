@@ -37,10 +37,7 @@ Todos os arquivos abaixo estão hoje como **placeholders gerados automaticamente
 - **Contagem regressiva** até 29/11/2026 às 16h — some automaticamente após a data (ver `data-wedding-date` em `index.html`, seção `#contagem`).
 - **Mapa** já embutido com o endereço do Espaço Aviv Eventos + botão "Ver no Google Maps".
 - **Lista de presentes** já aponta para `https://casamento-guieba.listaideal.com.br/pt/`.
-- **RSVP**: botão do WhatsApp está com `href="#"` e `aria-disabled="true"` — assim que a assessoria definir o número, edite o link em `index.html` (busque por `id="rsvpWhatsapp"`) para algo como:
-  ```html
-  <a class="btn btn--outline" href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener">
-  ```
+- **RSVP**: a assessoria entra em contato com os convidados pelo WhatsApp — a seção `#rsvp` do `index.html` só informa isso, sem botão de contato (removido a pedido da assessoria).
 - **Open Graph**: título, descrição e imagem de capa já configurados no `<head>` do `index.html`.
 
 ## Como publicar no GitHub Pages
