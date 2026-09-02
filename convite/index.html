@@ -17,22 +17,24 @@
 <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
   :root {
     --color-black: #111111;
     --color-white: #ffffff;
     --color-cream: #f7f5f2;
+    --color-paper: #fbfaf7;
     --color-gray-900: #1a1a1a;
     --color-gray-700: #4a4a4a;
     --color-gray-400: #9a9a9a;
     --color-gray-200: #e4e2de;
     --color-gold: #b7975f;
     --color-gold-soft: #cdb280;
-    --font-display: "Bodoni Moda", "Cormorant Garamond", serif;
+    --font-display: "Cormorant Garamond", serif;
     --font-serif: "Cormorant Garamond", serif;
-    --font-body: "Inter", "Manrope", sans-serif;
+    --font-body: "Cormorant Garamond", serif;
+    --font-sans: "Inter", sans-serif;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -58,7 +60,7 @@
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: var(--color-cream);
+    background: var(--color-paper);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,44 +74,52 @@
     pointer-events: none;
   }
 
-  .envelope__frame {
+  /* Aba superior do envelope, bem sutil */
+  .envelope::before {
+    content: "";
     position: absolute;
-    inset: clamp(0.9rem, 3vw, 1.75rem);
-    border: 1px solid var(--color-gold);
+    inset: 0;
+    background: linear-gradient(178deg, rgba(17, 17, 17, 0.02), rgba(17, 17, 17, 0.006) 60%);
+    clip-path: polygon(0 0, 100% 0, 50% 42%);
     pointer-events: none;
   }
 
-  .envelope__flap {
-    position: absolute;
-    top: clamp(0.9rem, 3vw, 1.75rem);
-    left: clamp(0.9rem, 3vw, 1.75rem);
-    right: clamp(0.9rem, 3vw, 1.75rem);
-    height: min(34vh, 34vw);
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .envelope__flap::before,
-  .envelope__flap::after {
+  /* Vinco vertical central do papel */
+  .envelope::after {
     content: "";
     position: absolute;
     top: 0;
-    width: 55.6%;
-    height: 1px;
-    background: var(--color-gold-soft);
-    opacity: 0.85;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(rgba(17, 17, 17, 0.035), rgba(17, 17, 17, 0.01) 55%, rgba(17, 17, 17, 0.028));
+    pointer-events: none;
   }
 
-  .envelope__flap::before {
+  /* Sombras laterais das abas */
+  .envelope__shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .envelope__shade::before,
+  .envelope__shade::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 34%;
+  }
+
+  .envelope__shade::before {
     left: 0;
-    transform-origin: left top;
-    transform: rotate(26deg);
+    background: linear-gradient(100deg, rgba(17, 17, 17, 0.014), transparent 70%);
   }
 
-  .envelope__flap::after {
+  .envelope__shade::after {
     right: 0;
-    transform-origin: right top;
-    transform: rotate(-26deg);
+    background: linear-gradient(-100deg, rgba(17, 17, 17, 0.014), transparent 70%);
   }
 
   .envelope__content {
@@ -117,68 +127,49 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     padding: 2rem;
-    max-width: 30rem;
   }
 
-  .envelope__monogram {
-    width: clamp(84px, 20vw, 120px);
-    opacity: 0.92;
+  /* -------- Lacre de cera -------- */
+
+  .seal {
+    position: relative;
+    width: clamp(150px, 40vw, 190px);
+    height: clamp(150px, 40vw, 190px);
+    filter: drop-shadow(0 7px 16px rgba(17, 17, 17, 0.38));
+    transition: transform 0.5s var(--ease);
   }
 
-  .envelope__names {
-    margin-top: 1.4rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.35rem, 5vw, 1.9rem);
-    letter-spacing: 0.04em;
-    color: var(--color-black);
+  .envelope:hover .seal { transform: scale(1.03); }
+
+  .seal svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
-  .envelope__names span {
+  .seal__monogram {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 52%;
+    filter: brightness(0) invert(1);
+    opacity: 0.34;
+  }
+
+  .seal__caption {
+    margin-top: 0.4rem;
+    width: clamp(220px, 60vw, 280px);
+    overflow: visible;
+  }
+
+  .seal__caption text {
     font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--color-gold);
-    padding: 0 0.2rem;
-  }
-
-  .envelope__eyebrow {
-    margin-top: 0.9rem;
-    font-size: 0.62rem;
+    font-size: 15px;
     font-weight: 500;
-    letter-spacing: 0.42em;
+    letter-spacing: 0.5em;
+    fill: var(--color-gray-400);
     text-transform: uppercase;
-    color: var(--color-gold);
-  }
-
-  .envelope__seal {
-    margin-top: 2.4rem;
-    width: 74px;
-    height: 74px;
-    border-radius: 50%;
-    border: 1px solid var(--color-gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    letter-spacing: 0.12em;
-    color: var(--color-gold);
-    animation: sealPulse 2.6s var(--ease) infinite;
-  }
-
-  @keyframes sealPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(183, 151, 95, 0.28); }
-    50% { box-shadow: 0 0 0 14px rgba(183, 151, 95, 0); }
-  }
-
-  .envelope__cta {
-    margin-top: 1.1rem;
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    color: var(--color-gray-700);
   }
 
   /* ============================ Convite ============================ */
@@ -219,25 +210,27 @@
 
   .invite__eyebrow {
     margin-top: 1.2rem;
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.42em;
+    font-family: var(--font-serif);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--color-gold);
   }
 
   .invite__names {
-    margin-top: 1rem;
+    margin-top: 0.9rem;
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2rem, 8.5vw, 2.9rem);
-    line-height: 1.12;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 9.5vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
     color: var(--color-black);
   }
 
   .invite__names span {
-    font-family: var(--font-serif);
     font-style: italic;
+    font-weight: 400;
     font-size: 0.72em;
     color: var(--color-gold);
     padding: 0 0.25rem;
@@ -249,7 +242,7 @@
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 500;
-    font-size: clamp(1.02rem, 4vw, 1.15rem);
+    font-size: clamp(1.08rem, 4.2vw, 1.2rem);
     line-height: 1.5;
     color: var(--color-gray-700);
   }
@@ -257,10 +250,9 @@
   .invite__verse-ref {
     display: block;
     margin-top: 0.55rem;
-    font-family: var(--font-body);
     font-style: normal;
-    font-size: 0.56rem;
-    font-weight: 500;
+    font-size: 0.74rem;
+    font-weight: 600;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--color-gold);
@@ -278,7 +270,7 @@
     margin: 1.7rem auto 0;
     max-width: 22rem;
     font-family: var(--font-serif);
-    font-size: clamp(1.05rem, 4.2vw, 1.2rem);
+    font-size: clamp(1.12rem, 4.5vw, 1.28rem);
     line-height: 1.5;
     color: var(--color-gray-700);
   }
@@ -286,16 +278,18 @@
   .invite__date {
     margin-top: 1.3rem;
     font-family: var(--font-display);
-    font-size: clamp(1.3rem, 5.5vw, 1.7rem);
+    font-weight: 500;
+    font-size: clamp(1.45rem, 6vw, 1.85rem);
     letter-spacing: 0.05em;
     color: var(--color-black);
   }
 
   .invite__times {
     margin-top: 0.7rem;
-    font-size: 0.66rem;
-    font-weight: 400;
-    letter-spacing: 0.16em;
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--color-gray-700);
   }
@@ -309,9 +303,10 @@
   }
 
   .countdown__title {
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.42em;
+    font-family: var(--font-serif);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--color-gold);
   }
@@ -325,7 +320,8 @@
 
   .countdown__value {
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 6.5vw, 2.1rem);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
     color: var(--color-black);
     line-height: 1.1;
     font-variant-numeric: tabular-nums;
@@ -333,9 +329,10 @@
 
   .countdown__label {
     margin-top: 0.25rem;
-    font-size: 0.54rem;
-    font-weight: 400;
-    letter-spacing: 0.2em;
+    font-family: var(--font-serif);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--color-gray-400);
   }
@@ -353,7 +350,8 @@
 
   .invite__venue-name {
     font-family: var(--font-display);
-    font-size: clamp(1.1rem, 4.6vw, 1.3rem);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 5vw, 1.45rem);
     color: var(--color-black);
     letter-spacing: 0.04em;
   }
@@ -361,11 +359,12 @@
   .invite__venue-address {
     margin: 0.6rem auto 0;
     max-width: 20rem;
-    font-size: 0.78rem;
-    font-weight: 300;
-    letter-spacing: 0.03em;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
     color: var(--color-gray-700);
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   /* Botões */
@@ -382,11 +381,13 @@
     align-items: center;
     justify-content: center;
     gap: 0.65rem;
-    padding: 0.9rem 1.2rem;
+    padding: 0.85rem 1rem;
     border: 1px solid var(--color-gray-900);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
+    font-family: var(--font-serif);
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
     text-transform: uppercase;
     color: var(--color-gray-900);
     transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
@@ -417,15 +418,16 @@
 
   .invite__rsvp {
     margin: 1.9rem auto 0;
-    max-width: 21rem;
-    font-size: 0.72rem;
-    font-weight: 300;
-    line-height: 1.7;
+    max-width: 22rem;
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    font-weight: 400;
+    line-height: 1.6;
     color: var(--color-gray-700);
   }
 
   .invite__rsvp strong {
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-gray-900);
   }
 
@@ -443,8 +445,9 @@
   }
 
   .invite__footer-date {
-    font-size: 0.6rem;
-    font-weight: 500;
+    font-family: var(--font-serif);
+    font-size: 0.78rem;
+    font-weight: 600;
     letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--color-gray-400);
@@ -454,7 +457,7 @@
     .envelope { transition: none; }
     .invite { transition: none; }
     [data-reveal] { opacity: 1; transform: none; transition: none; }
-    .envelope__seal { animation: none; }
+    .seal { transition: none; }
   }
 </style>
 </head>
@@ -462,14 +465,39 @@
 
 <!-- ===================== ENVELOPE ===================== -->
 <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Toque para abrir o convite">
-  <div class="envelope__frame" aria-hidden="true"></div>
-  <div class="envelope__flap" aria-hidden="true"></div>
+  <div class="envelope__shade" aria-hidden="true"></div>
   <div class="envelope__content">
-    <img class="envelope__monogram" src="../assets/img/logo-gb.png" alt="Monograma GB">
-    <p class="envelope__eyebrow">Convite de Casamento</p>
-    <p class="envelope__names">Guilherme <span>&amp;</span> Barbara</p>
-    <div class="envelope__seal" aria-hidden="true">G·B</div>
-    <p class="envelope__cta">Toque para abrir</p>
+
+    <div class="seal" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="waxBody" cx="42%" cy="38%" r="72%">
+            <stop offset="0%" stop-color="#3b3733"></stop>
+            <stop offset="45%" stop-color="#242220"></stop>
+            <stop offset="100%" stop-color="#121110"></stop>
+          </radialGradient>
+          <radialGradient id="waxSheen" cx="36%" cy="30%" r="45%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16"></stop>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"></stop>
+          </radialGradient>
+        </defs>
+        <!-- corpo do lacre, borda ondulada e irregular -->
+        <path fill="url(#waxBody)" d="M189.2,83.2 Q197,100 188.3,116.5 Q179.5,132.9 172.7,149.4 Q165.8,165.8 148.6,170.8 Q131.4,175.8 115.7,186.9 Q100,198 83.2,189.7 Q66.3,181.3 49.6,174.3 Q32.8,167.2 27.6,149.7 Q22.4,132.2 13.2,116.1 Q4,100 11.8,83.4 Q19.6,66.7 24.8,48.4 Q30,30 48.7,25.8 Q67.4,21.5 83.7,14.8 Q100,8 115.9,15.7 Q131.8,23.3 150.2,27.4 Q168.6,31.4 175,48.9 Q181.3,66.3 189.2,83.2 Z"></path>
+        <!-- brilho de cera -->
+        <path fill="url(#waxSheen)" d="M189.2,83.2 Q197,100 188.3,116.5 Q179.5,132.9 172.7,149.4 Q165.8,165.8 148.6,170.8 Q131.4,175.8 115.7,186.9 Q100,198 83.2,189.7 Q66.3,181.3 49.6,174.3 Q32.8,167.2 27.6,149.7 Q22.4,132.2 13.2,116.1 Q4,100 11.8,83.4 Q19.6,66.7 24.8,48.4 Q30,30 48.7,25.8 Q67.4,21.5 83.7,14.8 Q100,8 115.9,15.7 Q131.8,23.3 150.2,27.4 Q168.6,31.4 175,48.9 Q181.3,66.3 189.2,83.2 Z"></path>
+        <!-- placa central rebaixada (área do carimbo) -->
+        <circle cx="100" cy="100" r="57" fill="#232120"></circle>
+        <circle cx="100" cy="100" r="57" fill="none" stroke="#000000" stroke-opacity="0.4" stroke-width="2.4"></circle>
+        <circle cx="100" cy="100" r="53.5" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1.4"></circle>
+      </svg>
+      <img class="seal__monogram" src="../assets/img/logo-gb.png" alt="">
+    </div>
+
+    <svg class="seal__caption" viewBox="0 0 280 64" aria-hidden="true">
+      <path id="sealArc" d="M 16 14 A 300 300 0 0 0 264 14" fill="none"></path>
+      <text><textPath href="#sealArc" startOffset="50%" text-anchor="middle">Toque para abrir</textPath></text>
+    </svg>
+
   </div>
 </div>
 
