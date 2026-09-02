@@ -307,12 +307,32 @@
     color: var(--color-gray-700);
   }
 
-  .invite__date {
-    margin-top: 1.3rem;
-    font-family: var(--font-display);
+  .invite__weekday {
+    margin-top: 1.6rem;
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
     font-weight: 500;
-    font-size: clamp(1.45rem, 6vw, 1.85rem);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-gray-700);
+  }
+
+  .invite__day {
+    margin-top: 0.2rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(4.2rem, 17vw, 5.8rem);
+    line-height: 1;
+    color: var(--color-black);
+  }
+
+  .invite__month {
+    margin-top: 0.3rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 4.2vw, 1.2rem);
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
     color: var(--color-black);
   }
 
@@ -347,12 +367,21 @@
     margin-top: 0.9rem;
     display: flex;
     justify-content: center;
-    gap: clamp(0.9rem, 4vw, 1.6rem);
+    align-items: flex-start;
+    gap: clamp(0.55rem, 2.6vw, 1.1rem);
+  }
+
+  .countdown__sep {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    line-height: 1.1;
+    color: var(--color-gray-700);
   }
 
   .countdown__value {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 400;
     font-size: clamp(1.6rem, 7vw, 2.2rem);
     color: var(--color-black);
     line-height: 1.1;
@@ -577,7 +606,11 @@
 
     <p class="invite__line" data-reveal>Com muita alegria, convidamos você para celebrar o nosso casamento</p>
 
-    <p class="invite__date" data-reveal>Domingo, 29 de novembro de 2026</p>
+    <div data-reveal>
+      <p class="invite__weekday">Domingo</p>
+      <p class="invite__day">29</p>
+      <p class="invite__month">de novembro de 2026</p>
+    </div>
 
     <p class="invite__times" data-reveal>Abertura dos portões às 15h <span>·</span> Cerimônia às 16h</p>
 
@@ -585,9 +618,12 @@
       <p class="countdown__title">Faltam</p>
       <div class="countdown__grid" id="countdown" data-wedding-date="2026-11-29T16:00:00-03:00">
         <div><p class="countdown__value" id="cdDays">—</p><p class="countdown__label">Dias</p></div>
+        <p class="countdown__sep">:</p>
         <div><p class="countdown__value" id="cdHours">—</p><p class="countdown__label">Horas</p></div>
-        <div><p class="countdown__value" id="cdMinutes">—</p><p class="countdown__label">Min</p></div>
-        <div><p class="countdown__value" id="cdSeconds">—</p><p class="countdown__label">Seg</p></div>
+        <p class="countdown__sep">:</p>
+        <div><p class="countdown__value" id="cdMinutes">—</p><p class="countdown__label">Minutos</p></div>
+        <p class="countdown__sep">:</p>
+        <div><p class="countdown__value" id="cdSeconds">—</p><p class="countdown__label">Segundos</p></div>
       </div>
     </div>
 
