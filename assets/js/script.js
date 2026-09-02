@@ -31,6 +31,20 @@
     navMenu.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeMenu);
     });
+
+    /* Fecha ao tocar fora do painel do menu */
+    document.addEventListener("click", function (e) {
+      if (!navMenu.classList.contains("is-open")) return;
+      if (navMenu.contains(e.target) || navToggle.contains(e.target)) return;
+      closeMenu();
+    });
+
+    /* Fecha com a tecla Esc */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && navMenu.classList.contains("is-open")) {
+        closeMenu();
+      }
+    });
   }
 
   /* ---------- Contagem regressiva ---------- */

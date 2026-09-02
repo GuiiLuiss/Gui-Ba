@@ -199,6 +199,9 @@ h1, h2, h3, p {
 @media (max-width: 840px) {
   .nav__toggle {
     display: flex;
+    /* Mantém o botão (que vira X) acima do painel do menu */
+    position: relative;
+    z-index: 620;
   }
 
   .nav__menu {
