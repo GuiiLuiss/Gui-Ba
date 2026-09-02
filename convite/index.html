@@ -240,6 +240,22 @@
     padding: 0 0.2rem;
   }
 
+  /* Efeito de escrita: o nome surge da esquerda para a direita, como caneta no papel */
+  .invite__names[data-reveal] {
+    transform: none;
+    transition: none;
+  }
+
+  .invite__names[data-reveal].is-visible {
+    opacity: 1;
+    animation: escrita 2.6s cubic-bezier(0.35, 0, 0.25, 1) 0.2s both;
+  }
+
+  @keyframes escrita {
+    from { clip-path: inset(-30% 100% -30% -6%); }
+    to   { clip-path: inset(-30% -10% -30% -6%); }
+  }
+
   .invite__verse {
     margin: 0 auto;
     max-width: 24rem;
@@ -499,6 +515,7 @@
     .envelope { transition: none; }
     .invite { transition: none; }
     [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .invite__names[data-reveal].is-visible { animation: none; clip-path: none; }
     .seal { transition: none; }
   }
 </style>
@@ -679,11 +696,18 @@
   }
 
   function revealInView() {
+    /* Elementos já visíveis na abertura aparecem em cascata; o restante revela ao rolar */
+    var delay = 0;
     revealEls.forEach(function (el) {
-      if (observer) {
-        observer.observe(el);
+      if (el.classList.contains("is-visible")) return;
+      var inView = el.getBoundingClientRect().top < window.innerHeight * 0.95;
+      if (inView || !observer) {
+        (function (d) {
+          setTimeout(function () { el.classList.add("is-visible"); }, d);
+        })(delay);
+        delay += 320;
       } else {
-        el.classList.add("is-visible");
+        observer.observe(el);
       }
     });
   }
