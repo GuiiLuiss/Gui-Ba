@@ -223,13 +223,14 @@
   }
 
   .invite__names {
-    margin-top: 0.9rem;
+    margin-top: 1.5rem;
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: clamp(2.2rem, 9.5vw, 3.1rem);
+    font-size: clamp(1.8rem, 7.4vw, 2.9rem);
     line-height: 1.1;
     letter-spacing: 0.02em;
     color: var(--color-black);
+    white-space: nowrap;
   }
 
   .invite__names span {
@@ -241,7 +242,7 @@
   }
 
   .invite__verse {
-    margin: 1.3rem auto 0;
+    margin: 0 auto;
     max-width: 24rem;
     font-family: var(--font-serif);
     font-style: italic;
@@ -271,7 +272,7 @@
   }
 
   .invite__welcome {
-    margin: 0 auto;
+    margin: 1.6rem auto 0;
     max-width: 20rem;
     font-family: var(--font-serif);
     font-size: clamp(1rem, 4.4vw, 1.15rem);
@@ -549,12 +550,12 @@
     <img class="invite__photo" src="../assets/img/foto-maos.jpg" alt="Mãos de Guilherme e Barbara entrelaçadas, com as alianças">
 
     <div class="invite__body">
-    <p class="invite__welcome" data-reveal>Bem-vindos ao nosso para sempre…</p>
-
     <p class="invite__verse" data-reveal>
       “Acima de tudo, tenham amor, pois o amor une perfeitamente todas as coisas.”
       <span class="invite__verse-ref">Colossenses 3:14</span>
     </p>
+
+    <p class="invite__welcome" data-reveal>Bem-vindos ao nosso para sempre…</p>
 
     <h1 class="invite__names" data-reveal>Guilherme <span>&amp;</span> Barbara</h1>
 
